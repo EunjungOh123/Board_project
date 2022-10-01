@@ -1,6 +1,6 @@
 package com.example.board_practice.member.validator;
 
-/* 중복 검사를 위한 Validator(객체 검증용 인터페이스) 구현 추상 클래스 */
+/* 중복 검사를 위한 Validator(객체 검증용 인터페이스) 구현한 추상 클래스 */
 
 
 import com.example.board_practice.member.dto.UserRegisterDto;
@@ -22,9 +22,8 @@ public abstract class AbstractValidator<T> implements Validator {
         try {
             doValidate((T) target, errors);
         } catch (RuntimeException e) {
-            log.error("중복 검증 에러", e);
             throw e;
         }
     }
-    protected abstract void doValidate(final T dto, final Errors errors);
+    protected abstract void doValidate(final T dto, final Errors errors); // 검증 로직이 들어갈 메서드
 }
