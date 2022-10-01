@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입 페이지</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #17a2b8;
+            height: 100vh;
+        }
+        #register .container #login-row #login-column #login-box {
+            margin-top: 30px;
+            max-width: 600px;
+            height: 680px;
+            border: 1px solid #9C9C9C;
+            background-color: #EAEAEA;
+        }
+        #register .container #login-row #login-column #login-box #login-form {
+            padding: 20px;
+        }
+        #register.container #login-row #login-column #login-box #login-form  {
+            margin-top: -85px;
+        }
+        .alertMessage {
+            color: crimson;
+            font-size: 12px;
+        }
+
+    </style>
+</head>
+<body>
+<h1 id = "welcome" class="text-center text-white pt-4">~ Welcome ~</h1>
+<div id="register">
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <form th:action="@{/member/register}" id="login-form" class="form" method="post" modelAttribute="registerDto ">
+                        <h3 class="text-center text-info">Register</h3>
+                        <div class="form-group">
+                            <label for="userId" class="text-info">아이디: <span th:text="${valid_userId}" class = "alertMessage"></span></label><br>
+                            <input type="text" name="userId" th:value="${registerDto?.userId}" id="userId" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="text-info">비밀번호: <span th:text="${valid_password}" class = "alertMessage"></span></label><br>
+                            <input type="password" name="password" th:value="${registerDto?.password}"id="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="passwordCheck" class="text-info">비밀번호 확인: <span th:text="${valid_passwordCheck}" class = "alertMessage"></span></label><br>
+                            <input type="password" name="passwordCheck" th:value="${registerDto?.passwordCheck}" id="passwordCheck" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="text-info">이름: <span th:text="${valid_name}" class = "alertMessage"></span></label><br>
+                            <input type="text" name="name" th:value="${registerDto?.name}" id="name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="nickname" class="text-info">닉네임: <span th:text="${valid_nickname}" class = "alertMessage"></span></label><br>
+                            <input type="text" name="nickname" th:value="${registerDto?.nickname}" id="nickname" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="text-info">이메일: <span th:text="${valid_email}" class = "alertMessage"></span></label>
+                            <input type="email" name="email" th:value="${registerDto?.email}" id="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <br>
+                            <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>
