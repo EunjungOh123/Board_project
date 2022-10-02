@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>회원가입 페이지</title>
@@ -39,26 +38,26 @@
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
-                    <form th:action="@{/member/register}" id="login-form" class="form" method="post" modelAttribute="registerDto ">
+                    <form th:action="@{/member/register}" id="login-form" class="form" method="post" modelAttribute="registerDto">
                         <h3 class="text-center text-info">Register</h3>
                         <div class="form-group">
-                            <label for="userId" class="text-info">아이디: <span th:text="${valid_userId}" class = "alertMessage"></span></label><br>
+                            <label for="userId" class="text-info">아이디: <span th:text="${valid_userId}" class = "alertMessage"></span></label>
                             <input type="text" name="userId" th:value="${registerDto?.userId}" id="userId" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="password" class="text-info">비밀번호: <span th:text="${valid_password}" class = "alertMessage"></span></label><br>
-                            <input type="password" name="password" th:value="${registerDto?.password}"id="password" class="form-control">
+                            <label for="password" class="text-info">비밀번호: <span th:text="${valid_password}" class = "alertMessage"></span></label>
+                            <input type="password" name="password" th:value="${registerDto?.password}" id="password" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="passwordCheck" class="text-info">비밀번호 확인: <span th:text="${valid_passwordCheck}" class = "alertMessage"></span></label><br>
+                            <label for="passwordCheck" class="text-info">비밀번호 확인: <span th:text="${valid_passwordCheck}" class = "alertMessage"></span></label>
                             <input type="password" name="passwordCheck" th:value="${registerDto?.passwordCheck}" id="passwordCheck" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="name" class="text-info">이름: <span th:text="${valid_name}" class = "alertMessage"></span></label><br>
+                            <label for="name" class="text-info">이름: <span th:text="${valid_name}" class = "alertMessage"></span></label>
                             <input type="text" name="name" th:value="${registerDto?.name}" id="name" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="nickname" class="text-info">닉네임: <span th:text="${valid_nickname}" class = "alertMessage"></span></label><br>
+                            <label for="nickname" class="text-info">닉네임: <span th:text="${valid_nickname}" class = "alertMessage"></span></label>
                             <input type="text" name="nickname" th:value="${registerDto?.nickname}" id="nickname" class="form-control">
                         </div>
                         <div class="form-group">

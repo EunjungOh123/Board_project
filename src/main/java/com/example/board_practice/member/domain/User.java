@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-@Table(name = "BoardUser_Info")
+@Table
 @Entity
 @Data
 @Builder
@@ -38,4 +38,8 @@ public class User {
 
     private LocalDateTime registeredAt;
     private LocalDateTime updatedAt;
+    private LocalDateTime emailAuthAt; // 이메일 인증 날짜
+
+    private boolean emailAuthYn;
+    private String emailAuthKey;
 }
