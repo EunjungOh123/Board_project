@@ -2,7 +2,7 @@ package com.example.board_practice.member.dto;
 
 // 회원가입의 Form 데이터 전달에 활용할 객체
 
-import com.example.board_practice.member.domain.User;
+import com.example.board_practice.member.domain.SiteUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,11 +38,10 @@ public class UserRegisterDto {
     @NotBlank(message = "이메일은 필수 입력값입니다.")
     private String email;
 
-    public User toEntity () {
-        return User.builder()
+    public SiteUser toEntity () {
+        return SiteUser.builder()
                 .userId(userId)
                 .password(password)
-                .passwordCheck(passwordCheck)
                 .name(name)
                 .nickname(nickname)
                 .email(email)

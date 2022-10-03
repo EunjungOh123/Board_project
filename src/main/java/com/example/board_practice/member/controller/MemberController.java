@@ -1,7 +1,7 @@
 package com.example.board_practice.member.controller;
 
 import com.example.board_practice.member.dto.UserRegisterDto;
-import com.example.board_practice.member.service.UserService;
+import com.example.board_practice.member.service.Impl.UserServiceImpl;
 import com.example.board_practice.member.validator.CheckEmailValidator;
 import com.example.board_practice.member.validator.CheckNicknameValidator;
 import com.example.board_practice.member.validator.CheckPasswordMatchValidator;
@@ -21,8 +21,8 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
-public class UserController {
-    private final UserService userService;
+public class MemberController {
+    private final UserServiceImpl userService;
 
     private final CheckUserIdValidator checkUserIdValidator;
     private final CheckNicknameValidator checkNicknameValidator;
@@ -75,9 +75,20 @@ public class UserController {
         return "member/email-auth";
     }
 
-
     @GetMapping("/member/login")
     public String login() {
+        return "member/login";
+    }
+
+    @PostMapping("/member/login")
+    public String login(
+            @RequestParam (value = "error", required = false) String error,
+            @RequestParam (value = "exception", required = false) String exception,
+            Model model
+    ) {
+        /* error, exception > model에 담아 view로 넘겨준다 */
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
         return "member/login";
     }
 }
