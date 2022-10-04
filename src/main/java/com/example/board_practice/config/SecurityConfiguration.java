@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /*
 WebSecurityConfigurerAdapter은 Deprecated 되었으므로 다른 방법 사용
@@ -26,7 +27,6 @@ public class SecurityConfiguration {
 
     private final AuthFailureHandler authFailureHandler;
     private final UserDetailsServiceImpl userDetailsService;
-
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -64,6 +64,11 @@ public class SecurityConfiguration {
                 .defaultSuccessUrl("/")
                 .failureHandler(authFailureHandler)
                 .permitAll();
+
+                http.logout() // 로그아웃 설정 진행
+                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")) // 로그아웃 경로 지정
+                .logoutSuccessUrl("/") // 로그아웃 성공 시 이동할 경로를 지정
+                .invalidateHttpSession(true); // 로그아웃 성공 시 세션을 제거
 
 //        http.authenticationProvider(authenticationProvider());
 

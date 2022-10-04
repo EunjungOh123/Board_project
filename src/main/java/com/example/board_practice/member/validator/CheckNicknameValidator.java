@@ -15,7 +15,8 @@ public class CheckNicknameValidator extends AbstractValidator<UserRegisterDto>{
     @Override
     protected void doValidate(UserRegisterDto dto, Errors errors) {
         if(userRepository.existsByNickname(dto.toEntity().getNickname())) {
-            errors.rejectValue("nickname","닉네임 중복 오류",ErrorCode.NICKNAME_ALREADY_USE.getDescription());
+            errors.rejectValue("nickname","닉네임 중복 오류",
+                    ErrorCode.NICKNAME_ALREADY_USE.getDescription());
         }
     }
 }

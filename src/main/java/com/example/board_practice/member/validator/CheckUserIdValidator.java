@@ -15,7 +15,8 @@ public class CheckUserIdValidator extends AbstractValidator<UserRegisterDto>{
     @Override
     protected void doValidate(UserRegisterDto dto, Errors errors) {
         if(userRepository.existsByUserId(dto.toEntity().getUserId())) {
-            errors.rejectValue("userId", "아이디 중복 오류", ErrorCode.USERID_ALREADY_USE.getDescription());
+            errors.rejectValue("userId", "아이디 중복 오류",
+                    ErrorCode.USERID_ALREADY_USE.getDescription());
         }
     }
 }

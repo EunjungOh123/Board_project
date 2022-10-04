@@ -15,7 +15,8 @@ public class CheckEmailValidator extends AbstractValidator<UserRegisterDto>{
     @Override
     protected void doValidate(UserRegisterDto dto, Errors errors) {
         if(userRepository.existsByEmail(dto.toEntity().getEmail())) {
-            errors.rejectValue("email", "이메일 중복 오류",ErrorCode.EMAIL_ALREADY_USE.getDescription());
+            errors.rejectValue("email", "이메일 중복 오류",
+                    ErrorCode.EMAIL_ALREADY_USE.getDescription());
         }
     }
 }
