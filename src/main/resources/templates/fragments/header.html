@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SiteHead</title>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link th:href="@{/css/header.css}" rel="stylesheet">
+</head>
+<body>
+<div th:fragment="header">
+<div class="navbar-wrapper">
+  <div class="container-fluid">
+    <nav class="navbar navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">BACKEND CAMPUS</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#" class="">Home</a></li>
+            <li class=" dropdown">
+              <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Departments <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li class=" dropdown">
+                  <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View Departments</a>
+                </li>
+                <li><a href="#">Add New</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Add New</a></li>
+            <li class=" dropdown"><a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Managers <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">View Managers</a></li>
+                <li><a href="#">Add New</a></li>
+              </ul>
+            </li>
+            <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Staff <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">View Staff</a></li>
+                <li><a href="#">Add New</a></li>
+                <li><a href="#">Bulk Upload</a></li>
+              </ul>
+            </li>
+            <li class=" down"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HR <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Change Time Entry</a></li>
+                <li><a href="#">Report</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav pull-right">
+            <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">나의 정보  <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">비밀번호 변경</a></li>
+                <li><a href="#">프로필 보기</a></li>
+              </ul>
+            </li>
+            <li class="log-check"><a sec:authorize ="isAnonymous()" th:href="@{/member/login}">로그인</a></li>
+            <li class="log-check"><a sec:authorize ="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a></li>
+            <li class="log-check"><a sec:authorize="isAnonymous()" th:href="@{/member/register}">회원가입</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+</div>
+</body>
+</html>
