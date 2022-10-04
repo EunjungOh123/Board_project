@@ -91,4 +91,8 @@ public class MemberController {
         model.addAttribute("exception", exception);
         return "member/login";
     }
+    @GetMapping("/member/find-password")
+    public String findPassword() {
+        return "member/find-password";
+    }
 }
