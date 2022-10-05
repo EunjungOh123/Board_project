@@ -2,10 +2,10 @@ package com.example.board_practice.member.controller;
 
 import com.example.board_practice.member.dto.UserRegisterDto;
 import com.example.board_practice.member.service.Impl.UserServiceImpl;
-import com.example.board_practice.member.validator.CheckEmailValidator;
-import com.example.board_practice.member.validator.CheckNicknameValidator;
-import com.example.board_practice.member.validator.CheckPasswordMatchValidator;
-import com.example.board_practice.member.validator.CheckUserIdValidator;
+import com.example.board_practice.member.validator.registerValidatorInher.CheckEmailValidator;
+import com.example.board_practice.member.validator.registerValidatorInher.CheckNicknameValidator;
+import com.example.board_practice.member.validator.registerValidatorInher.CheckPasswordMatchValidator;
+import com.example.board_practice.member.validator.registerValidatorInher.CheckUserIdValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.util.Map;
 
+/* 회원 가입 , 이메일 인증 , 로그인 */
+
 @Controller
 @RequiredArgsConstructor
-public class MemberController {
+public class UserController {
     private final UserServiceImpl userService;
 
     private final CheckUserIdValidator checkUserIdValidator;
@@ -53,7 +55,7 @@ public class MemberController {
             /* 회원가입 실패시 입력 데이터 유지 */
             model.addAttribute("registerDto", registerDto);
             /* 유효성 검사를 통과하지 못한 필드와 message 모델에 매핑해서 뷰로 전달 */
-            Map<String, String> validateMap = userService.validateRegisterHandling(errors);
+            Map<String, String> validateMap = userService.validateHandling(errors);
             // map.keySet() -> 모든 key 값 가져온다
             // 가져온 키로 반복문을 통해 키와 에러 메세지로 매핑
             for (String key : validateMap.keySet()) {
@@ -64,7 +66,7 @@ public class MemberController {
 
         userService.registerUser(registerDto);
 
-        return "member/register_success";
+        return "member/register-success";
     }
     @GetMapping("/member/email-auth")
     public String emailAuth (
@@ -90,9 +92,5 @@ public class MemberController {
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
         return "member/login";
-    }
-    @GetMapping("/member/find-password")
-    public String findPassword() {
-        return "member/find-password";
     }
 }

@@ -1,10 +1,11 @@
 package com.example.board_practice.member.service.Impl;
 
-import com.example.board_practice.member.domain.SiteUser;
+import com.example.board_practice.member.entity.SiteUser;
 import com.example.board_practice.member.dto.UserRegisterDto;
 import com.example.board_practice.member.mail.MailSendService;
 import com.example.board_practice.member.repository.UserRepository;
 import com.example.board_practice.member.service.UserService;
+import com.example.board_practice.member.service.ValidateHandling;
 import com.example.board_practice.member.type.RoleType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -18,14 +19,14 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, ValidateHandling {
 
     private final UserRepository userRepository;
     private final MailSendService mailSendService;
 
     @Override
     @Transactional
-    public void registerUser (UserRegisterDto registerDto) {
+    public void registerUser(UserRegisterDto registerDto) {
         SiteUser user = registerDto.toEntity();
         String encPassword = BCrypt.hashpw(registerDto.getPassword(), BCrypt.gensalt());
         user.setRoleType(RoleType.GUEST)
@@ -35,26 +36,29 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
 
-        String text = mailSendService.createTextMessage(registerDto.getUserId(), user.getEmailAuthKey());
-        mailSendService.sendMail(registerDto.getEmail(), text);
+        String text = mailSendService.createRegisterTextMessage(registerDto.getUserId(), user.getEmailAuthKey());
+        String subject = "[회원 가입] 이메일 인증을 완료해주세요.";
+        mailSendService.sendMail(registerDto.getEmail(), text, subject);
     }
+
     @Override
     public boolean emailAuth(String emailAuthKey) {
-        Optional<SiteUser> optionalUser =  userRepository.findByEmailAuthKey(emailAuthKey);
-        if(!optionalUser.isPresent()) {
+        Optional<SiteUser> optionalUser = userRepository.findByEmailAuthKey(emailAuthKey);
+        if (!optionalUser.isPresent()) {
             return false;
         }
         SiteUser user = optionalUser.get();
         user.setEmailAuthYn(true).
                 setEmailAuthAt(LocalDateTime.now())
-                        .setRoleType(RoleType.USER);
+                .setRoleType(RoleType.USER);
         userRepository.save(user);
         return true;
     }
 
-    public Map<String, String> validateRegisterHandling(Errors errors) {
+    @Override
+    public Map<String, String> validateHandling(Errors errors) {
         Map<String, String> validatorResult = new HashMap<>();
-        /* 회원가입 실패시 message 값들을 받음 */
+        /* 본인 읹으 실패시 message 값들을 받음 */
         for (FieldError error : errors.getFieldErrors()) {
             String validKeyName = "valid_" + error.getField();
             validatorResult.put(validKeyName, error.getDefaultMessage());

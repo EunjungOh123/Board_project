@@ -2,7 +2,7 @@ package com.example.board_practice.member.dto;
 
 // 회원가입의 Form 데이터 전달에 활용할 객체
 
-import com.example.board_practice.member.domain.SiteUser;
+import com.example.board_practice.member.entity.SiteUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

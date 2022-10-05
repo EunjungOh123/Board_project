@@ -1,3 +1,6 @@
+<!--<header>-->
+<!--  <div th:replace="fragments/header :: header"></div>-->
+<!--</header>-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
@@ -58,15 +61,20 @@
             </li>
           </ul>
           <ul class="nav navbar-nav pull-right">
-            <li class=" dropdown"><a href="#" class="dropdown-toggle active" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">나의 정보  <span class="caret"></span></a>
+            <li class=" dropdown">
+              <a sec:authorize ="isAuthenticated()" href="#" class="dropdown-toggle active"
+                 data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">나의 정보
+                <span class="caret"></span>
+              </a>
               <ul class="dropdown-menu">
-                <li><a href="#">비밀번호 변경</a></li>
-                <li><a href="#">프로필 보기</a></li>
+                <li><a href="#">수강 목록</a></li>
+                <li><a href="#">회원 정보 수정</a></li>
               </ul>
             </li>
             <li class="log-check"><a sec:authorize ="isAnonymous()" th:href="@{/member/login}">로그인</a></li>
             <li class="log-check"><a sec:authorize ="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a></li>
             <li class="log-check"><a sec:authorize="isAnonymous()" th:href="@{/member/register}">회원가입</a></li>
+
           </ul>
         </div>
       </div>

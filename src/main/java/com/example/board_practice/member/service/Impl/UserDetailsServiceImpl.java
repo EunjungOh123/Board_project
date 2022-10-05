@@ -1,6 +1,6 @@
 package com.example.board_practice.member.service.Impl;
 
-import com.example.board_practice.member.domain.SiteUser;
+import com.example.board_practice.member.entity.SiteUser;
 import com.example.board_practice.member.repository.UserRepository;
 import com.example.board_practice.member.type.RoleType;
 import lombok.RequiredArgsConstructor;

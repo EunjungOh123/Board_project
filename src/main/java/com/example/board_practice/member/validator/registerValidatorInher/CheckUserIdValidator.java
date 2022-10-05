@@ -1,22 +1,23 @@
-package com.example.board_practice.member.validator;
+package com.example.board_practice.member.validator.registerValidatorInher;
 
 import com.example.board_practice.member.dto.UserRegisterDto;
 import com.example.board_practice.member.repository.UserRepository;
 import com.example.board_practice.member.type.ErrorCode;
+import com.example.board_practice.member.validator.RegisterValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
 @RequiredArgsConstructor
 @Component
-public class CheckEmailValidator extends AbstractValidator<UserRegisterDto>{
+public class CheckUserIdValidator extends RegisterValidator<UserRegisterDto> {
 
     private final UserRepository userRepository;
     @Override
     protected void doValidate(UserRegisterDto dto, Errors errors) {
-        if(userRepository.existsByEmail(dto.toEntity().getEmail())) {
-            errors.rejectValue("email", "이메일 중복 오류",
-                    ErrorCode.EMAIL_ALREADY_USE.getDescription());
+        if(userRepository.existsByUserId(dto.toEntity().getUserId())) {
+            errors.rejectValue("userId", "아이디 중복 오류",
+                    ErrorCode.USERID_ALREADY_USE.getDescription());
         }
     }
 }

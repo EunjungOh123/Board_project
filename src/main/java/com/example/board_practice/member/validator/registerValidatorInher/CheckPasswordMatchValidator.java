@@ -1,14 +1,15 @@
-package com.example.board_practice.member.validator;
+package com.example.board_practice.member.validator.registerValidatorInher;
 
 import com.example.board_practice.member.dto.UserRegisterDto;
 import com.example.board_practice.member.type.ErrorCode;
+import com.example.board_practice.member.validator.RegisterValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
 @RequiredArgsConstructor
 @Component
-public class CheckPasswordMatchValidator extends AbstractValidator<UserRegisterDto> {
+public class CheckPasswordMatchValidator extends RegisterValidator<UserRegisterDto> {
     @Override
     protected void doValidate(UserRegisterDto dto, Errors errors) {
         if(!dto.getPassword().equals(dto.getPasswordCheck())) {

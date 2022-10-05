@@ -60,7 +60,7 @@ public class SecurityConfiguration {
         http.formLogin()
                 .loginPage("/member/login")
                 // loadUserByUsername에 값이 들어오기 위해서는 로그인 폼에서 password 태그의 name이 userid로 설정
-                .usernameParameter("userid")
+                .usernameParameter("userId")
                 .defaultSuccessUrl("/")
                 .failureHandler(authFailureHandler)
                 .permitAll();

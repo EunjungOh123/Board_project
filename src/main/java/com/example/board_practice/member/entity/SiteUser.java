@@ -1,4 +1,4 @@
-package com.example.board_practice.member.domain;
+package com.example.board_practice.member.entity;
 
 import com.example.board_practice.baseEntity.TimeEntity;
 import com.example.board_practice.member.type.RoleType;
