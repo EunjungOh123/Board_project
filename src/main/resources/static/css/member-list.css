@@ -58,3 +58,15 @@
     text-align: center;
     margin-top: 2rem;
 }
+
+.pager {
+    margin-top: 20px;
+    text-align: center;
+}
+.pager a.on {
+    font-weight: bold;
+    color: red;
+}
+.form-control-plaintext {
+    height: 25px;
+}

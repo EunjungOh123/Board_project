@@ -64,13 +64,15 @@ public class PageUtil {
 
         StringBuilder sb = new StringBuilder();
 
-        long previousPageIndex = startPage > 1 ? startPage - 1 : 1;
+        long previousPageIndex = startPage > 1 ? startPage - 1 : 1; // 시작 페이지가 1인 경우
         long nextPageIndex = endPage < totalBlockCount ? endPage + 1 : totalBlockCount;
 
         String addQueryString = "";
         if (queryString != null && queryString.length() > 0) {
             addQueryString = "&" + queryString;
         }
+
+        /* &lt; : 오른쪽으로 열린 부등호 (<) */
 
         sb.append(String.format("<a href='?pageIndex=%d%s'>&lt;&lt;</a>", 1, addQueryString));
         sb.append(System.lineSeparator());
@@ -85,6 +87,8 @@ public class PageUtil {
             }
             sb.append(System.lineSeparator());
         }
+
+        /* &gt; : 왼쪽으로 열린 부등호 (>) */
 
         sb.append(String.format("<a href='?pageIndex=%d%s'>&gt;</a>", nextPageIndex, addQueryString));
         sb.append(System.lineSeparator());

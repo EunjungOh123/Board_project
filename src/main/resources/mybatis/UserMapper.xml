@@ -38,7 +38,7 @@
     </select>
 
     <select id="selectList"
-            resultType="com.example.board_practice.admin.dto.UserListDto">
+            resultType="com.example.board_practice.admin.dto.UserDto">
         select *
         from user_info
         where 1 = 1

@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-md-4 mx-auto">
             <div class="myForm form">
-                <form th:action="@{/member/register}" method="post" id="register-form" class="form" modelAttribute="registerDto">
+                <form method="post" id="register-form" class="form" modelAttribute="registerDto">
                     <div class="form-group">
                         <label for="userId" class="text">아이디: <span th:text="${valid_userId}" class = "alertMessage"></span></label>
                         <input type="text" name="userId" th:value="${registerDto?.userId}"  class="form-control my-input" id="userId">
@@ -60,6 +60,5 @@
     </div>
 </div>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 </html>

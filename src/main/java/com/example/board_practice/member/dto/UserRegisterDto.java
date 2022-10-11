@@ -3,11 +3,14 @@ package com.example.board_practice.member.dto;
 // 회원가입의 Form 데이터 전달에 활용할 객체
 
 import com.example.board_practice.member.entity.SiteUser;
+import com.example.board_practice.member.type.RoleType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -38,6 +41,9 @@ public class UserRegisterDto {
     @NotBlank(message = "이메일은 필수 입력값입니다.")
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
     public SiteUser toEntity () {
         return SiteUser.builder()
                 .userId(userId)
@@ -45,6 +51,7 @@ public class UserRegisterDto {
                 .name(name)
                 .nickname(nickname)
                 .email(email)
+                .roleType(RoleType.GUEST)
                 .build();
     }
 }

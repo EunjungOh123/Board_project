@@ -1,6 +1,7 @@
 package com.example.board_practice.config;
 
 import com.example.board_practice.member.service.Impl.UserDetailsServiceImpl;
+import com.example.board_practice.member.type.RoleType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -52,11 +54,26 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().antMatchers("/js/**", "/css/**"); // 보안 필터를 적용 X
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/","/member/login","/member/register","/member/email-auth")
+        http.csrf().disable();
+
+        http.authorizeRequests()
+                .antMatchers("/", "/member/login",
+                        "/member/register", "/member/email-auth"
+                        , "/member/for-identification", "member/reset-password")
                 .permitAll(); // 해당 경로들은 접근을 허용
+
+        http.authorizeRequests()
+                .antMatchers("/admin/**")
+                .hasAuthority(RoleType.ADMIN.getValue());
+
+        /* anyRequest() : 이외의 모든 resource 접근에 대해 authenticated() : 로그인 해야 허용 */
+
         http.formLogin()
                 .loginPage("/member/login")
                 // loadUserByUsername에 값이 들어오기 위해서는 로그인 폼에서 password 태그의 name이 userid로 설정
@@ -65,12 +82,16 @@ public class SecurityConfiguration {
                 .failureHandler(authFailureHandler)
                 .permitAll();
 
-                http.logout() // 로그아웃 설정 진행
+        http.logout() // 로그아웃 설정 진행
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")) // 로그아웃 경로 지정
                 .logoutSuccessUrl("/") // 로그아웃 성공 시 이동할 경로를 지정
                 .invalidateHttpSession(true); // 로그아웃 성공 시 세션을 제거
 
-//        http.authenticationProvider(authenticationProvider());
+        http.exceptionHandling()
+                .accessDeniedPage("/error/denied");
+
+
+        http.authenticationProvider(authenticationProvider());
 
         return http.build();
     }

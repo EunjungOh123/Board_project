@@ -9,7 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Slf4j
-public abstract class AbstractValidator<T> implements Validator {
+public abstract class RegisterValidator<T> implements Validator {
     // 인자로 넘어온 클래스, 즉 검증해야 되는 인스턴스의 클래스가 해당 validator가 검증할 수 있는 클래스인지 판단하는 메서드
     @Override
     public boolean supports(Class<?> clazz) {

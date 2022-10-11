@@ -41,12 +41,13 @@ public class MailSendService {
         text += emailAuthKey +"\">가입 완료</a></div>";
         return text;
     }
-    public String TemporaryPasswordTextMessage (String userId, String temporaryPassword) {
+    public String resetPasswordTextMessage (String userId, String resetPasswordKey) {
         String text = "";
         text += "<h2 style=\"color: #2e6c80;\">"+userId +"님 안녕하세요.</h2>";
-        text += "<h3>비밀번호 재발급을 위한 메일입니다.</h3>";
-        text += "<h3>임시 비밀번호 : " +temporaryPassword + "</h3>";
-        text += "<h4>사이트에서 임시 비밀번호를 통해 로그인 후 비밀번호를 변경해주세요.</h4>";
+        text += "<h3>비밀번호 재설정을 위한 인증 메일입니다.</h3>";
+        text += "<h3>아래 링크를 클릭하여 비밀번호를 다시 설정 해주세요.</h3>";
+        text += "<div><a target=\"_blank\" href=\"http://localhost:8080/member/reset-password?id=";
+        text += resetPasswordKey + "\">비밀번호 재설정</a></div>";
         return text;
     }
 }

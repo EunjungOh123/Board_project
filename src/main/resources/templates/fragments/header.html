@@ -1,15 +1,9 @@
-<!--<header>-->
-<!--  <div th:replace="fragments/header :: header"></div>-->
-<!--</header>-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SiteHead</title>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <title>Site-Head</title>
   <link th:href="@{/css/header.css}" rel="stylesheet">
 </head>
 <body>
@@ -25,11 +19,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">BACKEND CAMPUS</a>
+          <a class="navbar-brand" th:href="@{/}">BACKEND CAMPUS</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#" class="">Home</a></li>
+            <li class="active"><a th:href="@{/}" class="">Home</a></li>
             <li class=" dropdown">
               <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Departments <span class="caret"></span></a>
               <ul class="dropdown-menu">

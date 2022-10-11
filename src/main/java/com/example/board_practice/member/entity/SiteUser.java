@@ -2,6 +2,7 @@ package com.example.board_practice.member.entity;
 
 import com.example.board_practice.baseEntity.TimeEntity;
 import com.example.board_practice.member.type.RoleType;
+import com.example.board_practice.member.type.UserStatusType;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -24,7 +25,6 @@ public class SiteUser extends TimeEntity {
 
     private String password;
 
-/*    private String passwordCheck;  유효성 검사에만 사용되므로 db에 저장될 필요는 없을 듯 */
     private String name;
 
     @Column(unique = true)
@@ -37,7 +37,12 @@ public class SiteUser extends TimeEntity {
     private RoleType roleType;
 
     private LocalDateTime emailAuthAt; // 이메일 인증 날짜
-
     private boolean emailAuthYn;
     private String emailAuthKey;
+
+    private String resetPasswordKey;
+    private LocalDateTime resetPasswordKeyLimitAt;
+
+    @Enumerated(EnumType.STRING)
+    private UserStatusType userStatus; // 이용 가능한 상태 or 정지된 상태 or 가입 요청 중인 상태
 }

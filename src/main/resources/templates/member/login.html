@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-md-4 mx-auto">
             <div class="myForm form">
-                <form th:action="@{/member/login}" method="post" id="login-form" class="form">
+                <form method="post" id="login-form" class="form">
                     <div class="form-group">
                         <label for="userId" class="text">아이디: </label>
                         <input type="text" name="userId" id="userId" class="form-control my-input">
@@ -28,10 +28,10 @@
                     <div th:if="${param.error}" class="alertMessage">
                         <p th:text="${param.exception}"></p>
                     </div>
-                    <a th:href="@{/member/for-identification}" class="btn btn-block find-password">Forget Password?</a>
+                    <a th:href="@{/member/find-password}" class="btn btn-block find-password">Forget Password?</a>
                     <br>
                     <div class="form-group">
-                        <button class="btn btn-block g-button" type="summit" name="submit">summit</button>
+                        <button class="btn btn-block g-button" type="submit" name="submit">summit</button>
                     </div>
                     <div class="col-md-12 ">
                         <div class="login-or">
@@ -57,6 +57,5 @@
     </div>
 </div>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 </html>

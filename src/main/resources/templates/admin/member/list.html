@@ -3,21 +3,11 @@
       lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>이용자 목록</title>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <title>회원 관리</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <link th:href="@{/css/list.css}" rel="stylesheet">
-    <style>
-        .pager {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .pager a.on {
-            font-weight: bold;
-            color: red;
-        }
-    </style>
+    <link th:href="@{/css/member-list.css}" rel="stylesheet">
 </head>
 <body>
 <header>
@@ -25,13 +15,13 @@
 </header>
 <div class="search-box">
     <form method="get">
-        <select name="searchType">
+        <select name="searchType" class="form-control-plaintext">
             <option value="all">전체</option>
             <option th:selected="${#strings.equals(param.searchType, 'userId')}" value="userId">아이디</option>
             <option th:selected="${#strings.equals(param.searchType, 'email')}" value="email">이메일</option>
             <option th:selected="${#strings.equals(param.searchType, 'nickname')}" value="nickname">닉네임</option>
         </select>
-        <input th:value="${param.searchValue}" type="text" name="searchValue" class="form-control-plaintext"/>
+        <input th:value="${param.searchValue}" type="text" name="searchValue" class="form-control-sm" style="width:150px"/>
         <button type="submit">검색</button>
     </form>
 </div>
@@ -42,7 +32,7 @@
             <div class="row">
                 <div class="col col-xs-6">
                     <h3 class="panel-title" style="font-weight: bold">회원 리스트 (
-                    total <span th:text="${totalCount}"></span></p>개)</h3>
+                    total <span th:text="${totalCount}"></span>개)</h3>
                 </div>
             </div>
         </div>

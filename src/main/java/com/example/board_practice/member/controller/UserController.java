@@ -49,7 +49,8 @@ public class UserController {
     }
 
     @PostMapping("/member/register")
-    public String registerSubmit(@Valid UserRegisterDto registerDto, Errors errors, Model model) {
+    public String registerSubmit(@Valid UserRegisterDto registerDto,
+                                 Errors errors, Model model) {
         /* post 요청시 넘어온 user 입력값에서 Validation에 걸리는 경우 */
         if (errors.hasErrors()) {
             /* 회원가입 실패시 입력 데이터 유지 */
@@ -68,6 +69,7 @@ public class UserController {
 
         return "member/register-success";
     }
+
     @GetMapping("/member/email-auth")
     public String emailAuth (
             @RequestParam String id, Model model
