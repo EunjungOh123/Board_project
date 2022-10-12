@@ -1,7 +1,7 @@
 package com.example.board_practice.member.controller;
 
 import com.example.board_practice.member.dto.UserRegisterDto;
-import com.example.board_practice.member.service.Impl.UserServiceImpl;
+import com.example.board_practice.member.service.UserService;
 import com.example.board_practice.member.validator.registerValidatorInher.CheckEmailValidator;
 import com.example.board_practice.member.validator.registerValidatorInher.CheckNicknameValidator;
 import com.example.board_practice.member.validator.registerValidatorInher.CheckPasswordMatchValidator;
@@ -24,7 +24,7 @@ import java.util.Map;
 @Controller
 @RequiredArgsConstructor
 public class UserController {
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     private final CheckUserIdValidator checkUserIdValidator;
     private final CheckNicknameValidator checkNicknameValidator;

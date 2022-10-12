@@ -3,7 +3,7 @@ package com.example.board_practice.member.controller;
 import com.example.board_practice.member.dto.FindPasswordDto;
 import com.example.board_practice.member.dto.ResetPasswordDto;
 import com.example.board_practice.member.exception.ResetPasswordException;
-import com.example.board_practice.member.service.Impl.UserSettingsServiceImpl;
+import com.example.board_practice.member.service.UserSettingsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ import java.util.Map;
 @Controller
 @RequiredArgsConstructor
 public class UserSettingsController {
-    private final UserSettingsServiceImpl userSettingsService;
+    private final UserSettingsService userSettingsService;
 
     @GetMapping("/member/reset-password")
     public String resetPassword(@RequestParam String id, Model model) {

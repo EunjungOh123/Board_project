@@ -8,13 +8,14 @@ import com.example.board_practice.member.dto.UserRegisterDto;
 import com.example.board_practice.member.mail.MailSendService;
 import com.example.board_practice.member.repository.UserRepository;
 import com.example.board_practice.member.service.UserService;
-import com.example.board_practice.member.service.ValidateHandling;
 import com.example.board_practice.member.type.RoleType;
 import com.example.board_practice.member.type.UserStatusType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
 
 import javax.transaction.Transactional;
@@ -23,21 +24,21 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl extends ValidateHandling implements UserService {
+@Transactional
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final MailSendService mailSendService;
     private final UserMapper userMapper;
 
     @Override
-    @Transactional
     public void registerUser(UserRegisterDto registerDto) {
         SiteUser user = registerDto.toEntity();
         String encPassword = BCrypt.hashpw(registerDto.getPassword(), BCrypt.gensalt());
         user.setEmailAuthYn(false)
                 .setPassword(encPassword)
                 .setEmailAuthKey(UUID.randomUUID().toString())
-                .setUserStatus(UserStatusType.MEMBER_STATUS_REQ);
+                .setUserStatus(UserStatusType.REQUEST);
 
         userRepository.save(user);
 
@@ -61,7 +62,7 @@ public class UserServiceImpl extends ValidateHandling implements UserService {
         user.setEmailAuthYn(true).
                 setEmailAuthAt(LocalDateTime.now())
                 .setRoleType(RoleType.USER)
-                .setUserStatus(UserStatusType.MEMBER_STATUS_AVAILABLE);
+                .setUserStatus(UserStatusType.AVAILABLE);
 
         userRepository.save(user);
         return true;
@@ -80,7 +81,17 @@ public class UserServiceImpl extends ValidateHandling implements UserService {
                 i++;
             }
         }
-
         return list;
+    }
+
+    @Override
+    public Map<String, String> validateHandling(Errors errors) {
+        Map<String, String> validatorResult = new HashMap<>();
+        /* 실패 시 message 값들을 받음 */
+        for (FieldError error : errors.getFieldErrors()) {
+            String validKeyName = "valid_" + error.getField();
+            validatorResult.put(validKeyName, error.getDefaultMessage());
+        }
+        return validatorResult;
     }
 }

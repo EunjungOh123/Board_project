@@ -2,9 +2,11 @@ package com.example.board_practice.admin.controller;
 
 import com.example.board_practice.admin.dto.UserDto;
 import com.example.board_practice.admin.model.UserParam;
-import com.example.board_practice.member.service.Impl.UserServiceImpl;
+import com.example.board_practice.member.service.UserService;
+import com.example.board_practice.member.service.UserSettingsService;
 import com.example.board_practice.util.PageUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +15,11 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class AdminController {
+@Slf4j
+public class AdminUserController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
+    private final UserSettingsService userSettingsService;
 
     @GetMapping("/admin/member/list")
     public String list (Model model, UserParam param) {
@@ -37,5 +41,13 @@ public class AdminController {
         model.addAttribute("pager", pageUtil.pager());
 
         return "admin/member/list";
+    }
+    @GetMapping("/admin/member/detail")
+    public String detail(Model model, UserParam param) {
+        param.init();
+        UserDto user = userSettingsService.detail(param.getUserId()); // fromEntity 쪽이 작동 안해서 null 반환?
+
+        model.addAttribute("user", user);
+        return "admin/member/detail";
     }
 }

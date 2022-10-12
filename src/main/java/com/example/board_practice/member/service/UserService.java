@@ -3,8 +3,10 @@ package com.example.board_practice.member.service;
 import com.example.board_practice.admin.dto.UserDto;
 import com.example.board_practice.admin.model.UserParam;
 import com.example.board_practice.member.dto.UserRegisterDto;
+import org.springframework.validation.Errors;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
@@ -22,5 +24,8 @@ public interface UserService {
       * 회원 목록 리턴(관리자에서만 사용 가능)
       */
      List<UserDto> list (UserParam param);
+
+
+     Map<String, String> validateHandling(Errors errors);
 
 }

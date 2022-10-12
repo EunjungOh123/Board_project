@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 회원 상세 정보 관리</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link th:href="@{/css/member-detail.css}" rel="stylesheet">
+</head>
+<body>
+<script>
+    alert('1');
+</script>
+<header>
+    <div th:replace="fragments/admin-header :: admin-header"></div>
+</header>
+<div class="col-md-10 col-md-offset-1">
+    <div class="panel panel-default panel-table">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col col-xs-6">
+                    <h3 class="panel-title" style="font-weight: bold">회원 상세 정보</h3>
+                </div>
+            </div>
+        </div>
+        <div class="detail">
+        <table class="table table-bordered table-list">
+            <tbody>
+            <tr>
+                <th>아이디</th>
+                <td>
+                    <div th:text="${user.userId}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>이름</th>
+                <td>
+                    <div th:text="${user.name}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>닉네임</th>
+                <td>
+                    <div th:text="${user.nickname}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>이메일</th>
+                <td>
+                    <div th:text="${user.email}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>이메일 인증</th>
+                <td>
+                    <div th:text="${user.emailAuthYn}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>가입일</th>
+                <td>
+                    <div th:text="${user.registeredAt}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>관리자 여부</th>
+                <td>
+                    <div th:text="${user.roleType}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th>회원 상태</th>
+                <td>
+                    <p>
+                        현재상태: <span th:text="${user.userStatus}"></span>
+                    </p>
+                    <div>
+                        <form method="post" action="/admin/member/status">
+                            <input th:value="${user.userId}" type="hidden" name="userId"/>
+                            <select name="userStatus" style="height: 25px">
+                                <option value="REQUEST">가입 승인 중</option>
+                                <option value="AVAILABLE">이용 가능</option>
+                                <option value="STOP">정지</option>
+                            </select>
+                            <button type="submit">변경</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>비밀번호 변경</th>
+                <td>
+                    <div>
+                        <form method="post" action="/admin/member/password">
+                            <input th:value="${user.userId}" type="hidden" name="userId"/>
+                            <input type="text" name="password"/>
+                            <button type="submit">비밀번호 초기화</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+    <a href="list" class="btn btn-success btn-sm pull-left">홈으로</a>
+</div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet'
+      type='text/css'>
+</body>
+</html>

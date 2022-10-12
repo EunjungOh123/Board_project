@@ -1,10 +1,7 @@
 package com.example.board_practice.admin.dto;
 
 import com.example.board_practice.member.entity.SiteUser;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
+
     String userId;
     String name;
     String email;
@@ -20,7 +18,13 @@ public class UserDto {
     LocalDateTime registeredAt;
 
     boolean emailAuthYn;
+    LocalDateTime emailAuthAt;
+
     String roleType;
+    String userStatus;
+
+    String resetPasswordKey;
+    LocalDateTime resetPasswordLimitAt;
 
     long totalCount;
     long seq;
@@ -33,6 +37,11 @@ public class UserDto {
                 .nickname(user.getNickname())
                 .registeredAt(user.getRegisteredAt())
                 .emailAuthYn(user.isEmailAuthYn())
-                .roleType(user.getRoleType().toString()).build();
+                .emailAuthAt(user.getEmailAuthAt())
+                .resetPasswordKey(user.getResetPasswordKey())
+                .resetPasswordLimitAt(user.getResetPasswordKeyLimitAt())
+                .roleType(user.getRoleType().toString())
+                .userStatus(user.getUserStatus().toString())
+                .build();
     }
 }
