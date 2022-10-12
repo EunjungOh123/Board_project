@@ -11,19 +11,19 @@ public enum UserStatusType {
      * 현재 가입 요청중
      */
 
-    MEMBER_STATUS_REQ("REQUEST"),
+    REQUEST("USER_STATUS_REQ"),
 
     /**
      * 현재 이용중인 상태
      */
 
-    MEMBER_STATUS_AVAILABLE("AVAILABLE"),
+    AVAILABLE("USER_STATUS_AVAILABLE"),
 
     /**
      * 현재 정지된 상태
      */
 
-    MEMBER_STATUS_STOP("STOP");
+    STOP("USER_STATUS_STOP");
 
     private final String description;
 }

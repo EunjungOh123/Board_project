@@ -25,7 +25,7 @@ public class UserRegisterDto {
     @Size(min = 2, max = 15, message = "아이디를 2~10자 사이로 입력해주세요.")
     private String userId;
     @NotBlank(message = "비밀번호는 필수 입력 값입니다.")
-    @Pattern(regexp="(?=.*[0-9])(?=.*[a-z])(?=.*\\W)(?=\\S+$).{6,12}",
+    @Pattern(regexp="(?=.*[0-9])(?=.*[a-z])(?=.*\\W)(?=\\S+$).{6,12}", // 공백 허용 X
             message = "영문자와 숫자, 특수기호가 적어도 1개 이상 포함된 6자~12자여야 합니다.")
     private String password;
 

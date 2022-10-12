@@ -8,6 +8,7 @@ import com.example.board_practice.member.mail.MailSendService;
 import com.example.board_practice.member.repository.UserRepository;
 import com.example.board_practice.member.service.UserSettingsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
@@ -96,6 +97,30 @@ public class UserSettingsServiceImpl implements UserSettingsService {
         }
         SiteUser user = optionalUser.get();
         return UserDto.fromEntity(user);
+    }
+
+    @Override
+    public void updateStatus(String userId, String userStatus) {
+        Optional<SiteUser> optionalUser = userRepository.findByUserId(userId);
+        if (!optionalUser.isPresent()) {
+            throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
+        }
+        SiteUser user = optionalUser.get();
+        user.setUserStatus(userStatus);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void updatePassword(String userId, String password) {
+        Optional<SiteUser> optionalUser = userRepository.findByUserId(userId);
+        if (!optionalUser.isPresent()) {
+            throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
+        }
+
+        SiteUser user = optionalUser.get();
+        String encPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        user.setPassword(encPassword);
+        userRepository.save(user);
     }
 
     @Override

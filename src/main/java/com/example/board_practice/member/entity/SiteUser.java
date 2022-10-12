@@ -2,7 +2,7 @@ package com.example.board_practice.member.entity;
 
 import com.example.board_practice.baseEntity.TimeEntity;
 import com.example.board_practice.member.type.RoleType;
-import com.example.board_practice.member.type.UserStatusType;
+
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -43,6 +43,5 @@ public class SiteUser extends TimeEntity {
     private String resetPasswordKey;
     private LocalDateTime resetPasswordKeyLimitAt;
 
-    @Enumerated(EnumType.STRING)
-    private UserStatusType userStatus; // 이용 가능한 상태 or 정지된 상태 or 가입 요청 중인 상태
+    private String userStatus; // 이용 가능한 상태 or 정지된 상태 or 가입 요청 중인 상태
 }

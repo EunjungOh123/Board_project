@@ -27,5 +27,15 @@ public interface UserSettingsService {
      * 회원 상세 정보
      */
     UserDto detail (String userId);
+
+    /**
+     * 회원 상태 변경
+     */
+    void updateStatus(String userId, String userStatus);
+
+    /**
+     * 회원 비밀번호 초기화
+     */
+    void updatePassword(String userId, String password);
     Map<String, String> validateHandling(Errors errors);
 }

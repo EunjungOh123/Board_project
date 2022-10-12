@@ -1,5 +1,6 @@
 package com.example.board_practice.admin.controller;
 
+import com.example.board_practice.admin.dto.ChangeUserDetailDto;
 import com.example.board_practice.admin.dto.UserDto;
 import com.example.board_practice.admin.model.UserParam;
 import com.example.board_practice.member.service.UserService;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -49,5 +51,22 @@ public class AdminUserController {
 
         model.addAttribute("user", user);
         return "admin/member/detail";
+    }
+    @PostMapping("/admin/member/status")
+    public String status(ChangeUserDetailDto detailInfoDto) {
+
+
+        userSettingsService.updateStatus(detailInfoDto.getUserId(), detailInfoDto.getUserStatus());
+
+        return "redirect:/admin/member/detail?userId=" + detailInfoDto.getUserId();
+    }
+
+    @PostMapping("/admin/member/password")
+    public String password(ChangeUserDetailDto detailInfoDto) {
+
+
+        userSettingsService.updatePassword(detailInfoDto.getUserId(), detailInfoDto.getPassword());
+
+        return "redirect:/admin/member/detail?userId=" + detailInfoDto.getUserId();
     }
 }

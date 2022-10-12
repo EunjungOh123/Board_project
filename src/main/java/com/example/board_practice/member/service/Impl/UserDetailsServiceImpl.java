@@ -1,8 +1,11 @@
 package com.example.board_practice.member.service.Impl;
 
 import com.example.board_practice.member.entity.SiteUser;
+import com.example.board_practice.member.exception.UserEmailNotAuthException;
+import com.example.board_practice.member.exception.UserStopException;
 import com.example.board_practice.member.repository.UserRepository;
 import com.example.board_practice.member.type.RoleType;
+import com.example.board_practice.member.type.UserStatusType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -39,6 +42,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("사용자가 존재하지 않습니다.");
         }
         SiteUser user = optionalUser.get();
+
+        if(UserStatusType.REQUEST.toString().equals(user.getUserStatus())) {
+            throw new UserEmailNotAuthException("이메일 활성화 이후 로그인 해주세요.");
+        }
+
+        if(UserStatusType.STOP.toString().equals(user.getUserStatus())) {
+            throw new UserStopException("정지된 회원입니다. 관리자에게 문의해주세요.");
+        }
+
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
 
         /* RoleType에 따라 권한을 부여*/

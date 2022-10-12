@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
         user.setEmailAuthYn(false)
                 .setPassword(encPassword)
                 .setEmailAuthKey(UUID.randomUUID().toString())
-                .setUserStatus(UserStatusType.REQUEST);
+                .setUserStatus(UserStatusType.REQUEST.toString());
 
         userRepository.save(user);
 
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
         user.setEmailAuthYn(true).
                 setEmailAuthAt(LocalDateTime.now())
                 .setRoleType(RoleType.USER)
-                .setUserStatus(UserStatusType.AVAILABLE);
+                .setUserStatus(UserStatusType.AVAILABLE.toString());
 
         userRepository.save(user);
         return true;

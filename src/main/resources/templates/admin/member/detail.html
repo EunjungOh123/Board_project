@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>관리자 회원 상세 정보 관리</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <link th:href="@{/css/member-detail.css}" rel="stylesheet">
@@ -23,7 +24,7 @@
             </div>
         </div>
         <div class="detail">
-        <table class="table table-bordered table-list">
+        <table class="table  table-list">
             <tbody>
             <tr>
                 <th>아이디</th>
@@ -92,8 +93,8 @@
                     <div>
                         <form method="post" action="/admin/member/password">
                             <input th:value="${user.userId}" type="hidden" name="userId"/>
-                            <input type="text" name="password"/>
-                            <button type="submit">비밀번호 초기화</button>
+                            <input type="password" name="password" id="password"/>
+                            <button type="submit" onclick="checkPassword()">비밀번호 초기화</button>
                         </form>
                     </div>
                 </td>
@@ -106,5 +107,16 @@
 </div>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet'
       type='text/css'>
+<script>
+    function checkPassword () {
+        var password = document.getElementById("password");
+        var passwordCheck = /(?=.*[0-9])(?=.*[a-z])(?=.*\W)(?=\S+$).{6,12}/;
+
+        if(!passwordCheck.test(password.value)) {
+            alert('비밀번호는 영문자와 숫자, 특수기호가 적어도 1개 이상 포함된 6자~12자를 만족해야 합니다.')
+            return false;
+        }
+    }
+</script>
 </body>
 </html>
