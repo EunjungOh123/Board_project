@@ -37,5 +37,9 @@ public interface UserSettingsService {
      * 회원 비밀번호 초기화
      */
     void updatePassword(String userId, String password);
+
+    /**
+     * 회원 가입 시 유효성 검사에 대한 에러 처리
+     */
     Map<String, String> validateHandling(Errors errors);
 }

@@ -41,7 +41,7 @@ public class UserDto {
                 .resetPasswordKey(user.getResetPasswordKey())
                 .resetPasswordLimitAt(user.getResetPasswordKeyLimitAt())
                 .roleType(user.getRoleType().toString())
-                .userStatus(user.getUserStatus().toString())
+                .userStatus(user.getUserStatus())
                 .build();
     }
 }

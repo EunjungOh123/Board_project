@@ -25,7 +25,9 @@ public interface UserService {
       */
      List<UserDto> list (UserParam param);
 
-
+     /**
+      * 회원 가입 시 유효성 검사에 대한 에러 처리
+      */
      Map<String, String> validateHandling(Errors errors);
 
 }

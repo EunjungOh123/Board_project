@@ -10,6 +10,6 @@ import java.util.List;
 public interface UserMapper {
 
     long selectListCount(UserParam parameter);
-    List <UserDto> selectList(UserParam param);
+    List <UserDto> selectList(UserParam parameter);
 
 }

@@ -7,7 +7,6 @@ import com.example.board_practice.member.service.UserService;
 import com.example.board_practice.member.service.UserSettingsService;
 import com.example.board_practice.util.PageUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +16,6 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@Slf4j
 public class AdminUserController {
 
     private final UserService userService;
