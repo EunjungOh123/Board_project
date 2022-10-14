@@ -5,7 +5,7 @@ import com.example.board_practice.admin.dto.UserDto;
 import com.example.board_practice.admin.model.UserParam;
 import com.example.board_practice.member.service.UserService;
 import com.example.board_practice.member.service.UserSettingsService;
-import com.example.board_practice.util.PageUtil;
+import com.example.board_practice.course.controller.PageController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class AdminUserController {
+public class AdminUserController extends PageController {
 
     private final UserService userService;
     private final UserSettingsService userSettingsService;
@@ -34,11 +34,11 @@ public class AdminUserController {
         }
 
         String queryString = param.getQueryString();
-        PageUtil pageUtil = new PageUtil(totalCount, param.getPageSize(), param.getPageIndex(),queryString);
+        String pagerHtml = getPaperHtml(totalCount, param.getPageSize(), param.getPageIndex(), queryString);
 
         model.addAttribute("list", users);
         model.addAttribute("totalCount",totalCount);
-        model.addAttribute("pager", pageUtil.pager());
+        model.addAttribute("pager", pagerHtml);
 
         return "admin/member/list";
     }
