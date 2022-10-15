@@ -36,6 +36,7 @@ public class CourseDto {
     //추가컬럼
     long totalCount;
     long seq;
+
     public static CourseDto fromEntity(Course course) {
         return CourseDto.builder()
                 .id(course.getId())

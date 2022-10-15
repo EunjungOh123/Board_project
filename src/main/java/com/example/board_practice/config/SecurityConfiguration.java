@@ -62,6 +62,8 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
+        http.headers().frameOptions().sameOrigin();
+
         http.authorizeRequests()
                 .antMatchers("/", "/member/login",
                         "/member/register", "/member/email-auth"

@@ -9,6 +9,19 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <link th:href="@{/css/course-add.css}" rel="stylesheet">
+    <script>
+        $(document).ready(function() {
+
+            $('#submitForm').on('submit', function() {
+
+                // 에디터의 내용이 textarea 적용된다.
+                oEditors.getById["contents"].exec("UPDATE_CONTENTS_FIELD", []);
+
+            });
+
+
+        });
+    </script>
 </head>
 <body>
 <header>
@@ -67,14 +80,14 @@
                     <tr>
                         <th>내용</th>
                         <td class="table-input">
-                            <div><textarea th:text="${detail.contents}" name="contents" class="form-control"></textarea>
+                            <div><textarea th:text="${detail.contents}" id="contents" name="contents" class="form-control"></textarea>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <th>정가</th>
                         <td class="table-input">
-                            <div><input th:value="${detail.price}" type="text" name="price" class="form-control"
+                            <div><input th:value="${detail.price}" type="text"  name="price" class="form-control"
                                         required/></div>
                         </td>
                     </tr>
@@ -117,5 +130,18 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/res/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+    var oEditors = [];
+    setTimeout(function() {
+        nhn.husky.EZCreator.createInIFrame({
+            oAppRef: oEditors,
+            elPlaceHolder: "contents",
+            sSkinURI: "/res/se2/SmartEditor2Skin.html",
+            fCreator: "createSEditor2"
+        });
+    }, 100);
+</script>
 </body>
 </html>

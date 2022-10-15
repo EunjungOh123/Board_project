@@ -3,17 +3,13 @@
     font-size: 15px;
 }
 .col-md-offset-1 {
-    margin-top: 1rem;
+    margin-top: 2rem;
 }
-.panel-table{
+.panel-table .panel-body{
     padding:0;
-    margin:0;
-}
-.table {
-    margin-bottom: 0px;
 }
 
-.panel-table .panel-body {
+.panel-table .panel-body .table-bordered{
     border-style: none;
     margin:0;
 }
@@ -41,7 +37,11 @@
     border-top: 0px;
 }
 
-.panel-table .panel-footer {
+.panel-table .panel-footer .pagination{
+    margin:0;
+}
+
+.panel-table .panel-footer .col{
     line-height: 34px;
     height: 34px;
 }
@@ -54,17 +54,18 @@
 .panel-table .panel-body .table-bordered > tbody > tr > td{
     line-height: 34px;
 }
-.btn-success {
-    margin-top: 15px;
-}
-.table-input {
+.pager {
+    margin-top: 20px;
     text-align: center;
 }
-.inline-div {
-    margin-top: 7px;
-    margin-bottom: 7px;
-    margin-left: 7px;
+.pager a.on {
+    font-weight: bold;
+    color: red;
 }
-.btn-sm {
-    margin-right: 3px;
+#searchCourseId {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+td {
+    text-align: center;
 }

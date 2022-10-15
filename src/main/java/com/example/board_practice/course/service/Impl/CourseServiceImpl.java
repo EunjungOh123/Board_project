@@ -3,9 +3,13 @@ package com.example.board_practice.course.service.Impl;
 import com.example.board_practice.course.dto.CourseDto;
 import com.example.board_practice.course.dto.InputCourseDto;
 import com.example.board_practice.course.entity.Course;
+import com.example.board_practice.course.entity.TakeCourse;
 import com.example.board_practice.course.mapper.CourseMapper;
 import com.example.board_practice.course.model.CourseParam;
+import com.example.board_practice.course.model.ServiceResult;
+import com.example.board_practice.course.model.TakeCourseInput;
 import com.example.board_practice.course.repository.CourseRepository;
+import com.example.board_practice.course.repository.TakeCourseRepository;
 import com.example.board_practice.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +27,7 @@ import java.util.Optional;
 public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
+    private final TakeCourseRepository takeCourseRepository;
     private final CourseMapper courseMapper;
 
     private LocalDate getLocalDate(String value) {
@@ -114,5 +120,71 @@ public class CourseServiceImpl implements CourseService {
                 }
             }
         }
+    }
+
+    @Override
+    public List<CourseDto> frontList(CourseParam parameter) {
+        if (parameter.getCategoryId() < 1) {
+            List<Course> courseList = courseRepository.findAll();
+            return CourseDto.fromEntity(courseList);
+        }
+
+        Optional<List<Course>> optionalCourses = courseRepository.findByCategoryId(parameter.getCategoryId());
+        if (optionalCourses.isPresent()) {
+            return CourseDto.fromEntity(optionalCourses.get());
+        }
+        return null;
+    }
+
+    @Override
+    public CourseDto frontDetail(long id) {
+        Optional<Course> optionalCourse = courseRepository.findById(id);
+        if (optionalCourse.isPresent()) {
+            return CourseDto.fromEntity(optionalCourse.get());
+        }
+        return null;
+    }
+
+    @Override
+    public ServiceResult req(TakeCourseInput courseInput) {
+        ServiceResult result = new ServiceResult();
+
+        Optional<Course> optionalCourse = courseRepository.findById(courseInput.getCourseId());
+        if (!optionalCourse.isPresent()) {
+            result.setResult(false);
+            result.setMessage("강좌 정보가 존재하지 않습니다.");
+            return result;
+        }
+
+        Course course = optionalCourse.get();
+
+        //이미 신청정보가 있는지 확인
+        String[] statusList = {TakeCourse.STATUS_REQ, TakeCourse.STATUS_COMPLETE};
+        long count = takeCourseRepository.countByCourseIdAndUserIdAndStatusIn(course.getId(), courseInput.getUserId(), Arrays.asList(statusList));
+
+        if (count > 0) {
+            result.setResult(false);
+            result.setMessage("이미 신청한 강좌 정보가 존재합니다.");
+            return result;
+        }
+
+        TakeCourse takeCourse = TakeCourse.builder()
+                .courseId(course.getId())
+                .userId(courseInput.getUserId())
+                .payPrice(course.getSalePrice())
+                .registeredAt(LocalDateTime.now())
+                .status(TakeCourse.STATUS_REQ)
+                .build();
+        takeCourseRepository.save(takeCourse);
+
+        result.setResult(true);
+        result.setMessage("");
+        return result;
+    }
+
+    @Override
+    public List<CourseDto> listAll() {
+        List<Course> courseList = courseRepository.findAll();
+        return CourseDto.fromEntity(courseList);
     }
 }

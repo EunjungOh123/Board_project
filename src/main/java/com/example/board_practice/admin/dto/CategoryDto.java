@@ -13,12 +13,16 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CategoryDto {
+public class
+CategoryDto {
 
     Long id;
     String categoryName;
     int sortValue;
     boolean usingYn;
+
+    // 추가
+    int courseCount;
 
     public static List<CategoryDto> fromEntity (List<Category> categories) {
         if (categories != null) {

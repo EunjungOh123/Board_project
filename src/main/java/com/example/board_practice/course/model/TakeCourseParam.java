@@ -4,7 +4,13 @@ import com.example.board_practice.admin.model.CommonParam;
 import lombok.Data;
 
 @Data
-public class CourseParam extends CommonParam {
-    long id; // course_id
-    long categoryId;
+public class TakeCourseParam extends CommonParam {
+
+    long id;
+    String status;
+
+    String userId;
+
+
+    long searchCourseId;
 }

@@ -9,6 +9,42 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <link th:href="@{/css/course-list.css}" rel="stylesheet">
+    <script>
+        $(document).ready(function() {
+
+            $('#selectAll').on('click', function() {
+
+                var checked = $(this).is(':checked');
+
+
+                $('#dataList input[type=checkbox]').each(function(k, v) {
+                    $(this).prop('checked', checked);
+                });
+            });
+
+            $('#deleteButton').on('click', function() {
+                var $checked = $('#dataList input[type=checkbox]:checked');
+                if ($checked.length < 1) {
+                    alert(' 삭제할 데이터를 선택해 주세요. ');
+                    return false;
+                }
+                if (!confirm(' 선택한 데이터를 삭제하시겠습니까? ')) {
+                    return false;
+                }
+                var idList = [];
+                $.each($checked, function(k, v) {
+                    idList.push($(this).val());
+                });
+
+                console.log(idList);
+                console.log(idList.join(','));
+
+                var $deleteForm = $('form[name=deleteForm]');
+                $deleteForm.find('input[name=idList]').val( idList.join(',') );
+                $deleteForm.submit();
+            });
+        });
+    </script>
 </head>
 <body>
 <header>
@@ -17,7 +53,7 @@
 
 <div class="col-md-10 col-md-offset-1">
     <div class="inline-div">
-        <a type="button" class="btn btn-danger btn-sm">
+        <a type="button" id="deleteButton" class="btn btn-danger btn-sm">
             <span class="glyphicon glyphicon-remove"></span> 선택 삭제</a>
     </div>
     <div class="inline-div">
@@ -43,7 +79,7 @@
                 <th class="text-center">등록일</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="dataList">
             <tr th:each="x : ${list}">
                 <td><input type="checkbox" th:value="${x.id}"/></td>
                 <td th:text="${x.seq}">1</td>
@@ -65,5 +101,8 @@
     <div class="pager" th:utext="${pager}">
     </div>
 </div>
+<form name="deleteForm" method="post" action="/admin/course/delete">
+    <input type="hidden" name="idList"/>
+</form>
 </body>
 </html>

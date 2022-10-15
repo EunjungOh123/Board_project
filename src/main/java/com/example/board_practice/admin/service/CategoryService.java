@@ -19,9 +19,16 @@ public interface CategoryService {
      */
     void update (InputCategoryDto categoryDto);
 
-    /* 카테고리 삭제 */
+    /**
+     *  카테고리 삭제
+     */
     void delete (long id);
 
     boolean validateCategoryName (String categoryName);
+
+    /**
+     * 프론트 카테고리 정보
+     */
+    List<CategoryDto> frontList(CategoryDto categoryDto);
 
 }

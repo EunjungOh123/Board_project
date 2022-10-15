@@ -59,7 +59,7 @@ public class AdminCourseController extends PageController{
             if (existCourse == null) {
                 // error 처리
                 model.addAttribute("message", "강좌정보가 존재하지 않습니다.");
-                return "error/no-course-info";
+                return "error/course-error";
             }
             detail = existCourse;
         }
@@ -79,15 +79,18 @@ public class AdminCourseController extends PageController{
             if (existCourse == null) {
                 // error 처리
                 model.addAttribute("message", "강좌정보가 존재하지 않습니다.");
-                return "error/no-course-info";
+                return "error/course-error";
             }
-
             courseService.set(courseDto);
-
         } else {
             courseService.add(courseDto);
         }
+        return "redirect:/admin/course/list";
+    }
+    @PostMapping("/admin/course/delete")
+    public String delete(InputCourseDto courseDto) {
 
+        courseService.delete(courseDto.getIdList());
         return "redirect:/admin/course/list";
     }
 }

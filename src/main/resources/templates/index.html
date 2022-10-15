@@ -13,11 +13,6 @@
 <header>
     <div th:replace="fragments/header :: header"></div>
 </header>
-<br>
-<br>
-<br>
-<br>
-<br>
 <div sec:authorize ="isAuthenticated()">
     <span sec:authentication="name"></span>님 반갑습니다!
     <p th:text="${#authentication.authorities}"></p>
