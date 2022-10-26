@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService {
         user.setEmailAuthYn(false)
                 .setPassword(encPassword)
                 .setEmailAuthKey(UUID.randomUUID().toString())
+                .setRegisteredAt(LocalDateTime.now())
                 .setUserStatus(UserStatusType.REQUEST.toString());
 
         userRepository.save(user);

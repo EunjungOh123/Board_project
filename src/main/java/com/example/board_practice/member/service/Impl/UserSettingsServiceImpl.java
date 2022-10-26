@@ -1,12 +1,16 @@
 package com.example.board_practice.member.service.Impl;
 
 import com.example.board_practice.admin.dto.UserDto;
+import com.example.board_practice.course.model.ServiceResult;
 import com.example.board_practice.member.dto.FindPasswordDto;
+import com.example.board_practice.member.dto.UserInputDto;
 import com.example.board_practice.member.entity.SiteUser;
 import com.example.board_practice.member.exception.ResetPasswordException;
 import com.example.board_practice.member.mail.MailSendService;
 import com.example.board_practice.member.repository.UserRepository;
 import com.example.board_practice.member.service.UserSettingsService;
+import com.example.board_practice.member.type.UserStatusType;
+import com.example.board_practice.util.PasswordUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -132,5 +136,82 @@ public class UserSettingsServiceImpl implements UserSettingsService {
             validatorResult.put(validKeyName, error.getDefaultMessage());
         }
         return validatorResult;
+    }
+
+    @Override
+    public ServiceResult updateUser(UserInputDto parameter) {
+        String userId = parameter.getUserId();
+
+        Optional<SiteUser> optionalSiteUser = userRepository.findByUserId(userId);
+        if (!optionalSiteUser.isPresent()) {
+            return new ServiceResult(false, "회원 정보가 존재하지 않습니다.");
+        }
+
+        SiteUser user = optionalSiteUser.get();
+
+        user.setNickname((parameter.getNickname()));
+        user.setUpdatedAt(LocalDateTime.now());
+        user.setZipcode(parameter.getZipcode());
+        user.setAddr(parameter.getAddr());
+        user.setAddrDetail(parameter.getAddrDetail());
+        userRepository.save(user);
+
+        return new ServiceResult();
+    }
+
+    @Override
+    public ServiceResult updateUserPassword(UserInputDto parameter) {
+        String userId = parameter.getUserId();
+
+        Optional<SiteUser> optionalMember = userRepository.findByUserId(userId);
+        if (!optionalMember.isPresent()) {
+            return new ServiceResult(false, "회원 정보가 존재하지 않습니다.");
+        }
+
+        SiteUser user = optionalMember.get();
+
+        if (!PasswordUtils.equals(parameter.getPassword(), user.getPassword())) {
+            return new ServiceResult(false, "비밀번호가 일치하지 않습니다.");
+        }
+
+        String encPassword = PasswordUtils.encPassword(parameter.getNewPassword());
+
+        user.setPassword(encPassword);
+
+        userRepository.save(user);
+
+        return new ServiceResult(true);
+    }
+
+    @Override
+    public ServiceResult withdraw(String userId, String password) {
+        Optional<SiteUser> optionalMember = userRepository.findByUserId(userId);
+        if (!optionalMember.isPresent()) {
+            return new ServiceResult(false, "회원 정보가 존재하지 않습니다.");
+        }
+
+        SiteUser user = optionalMember.get();
+
+        if (!PasswordUtils.equals(password, user.getPassword())) {
+            return new ServiceResult(false, "비밀번호가 일치하지 않습니다.");
+        }
+
+        user.setName("삭제 회원");
+        user.setNickname("");
+        user.setPassword("");
+        user.setRegisteredAt(null);
+        user.setUpdatedAt(null);
+        user.setEmailAuthYn(false);
+        user.setEmailAuthAt(null);
+        user.setEmailAuthKey("");
+        user.setResetPasswordKey("");
+        user.setResetPasswordKeyLimitAt(null);
+        user.setUserStatus(UserStatusType.WITHDRAW.toString());
+        user.setZipcode("");
+        user.setAddr("");
+        user.setAddrDetail("");
+        userRepository.save(user);
+
+        return new ServiceResult();
     }
 }

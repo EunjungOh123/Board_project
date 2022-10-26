@@ -23,7 +23,13 @@ public enum UserStatusType {
      * 현재 정지된 상태
      */
 
-    STOP("USER_STATUS_STOP");
+    STOP("USER_STATUS_STOP"),
+
+    /**
+     * 현재 탈퇴된 회원
+     */
+
+    WITHDRAW("USER_STATUS_WITHDRAW");
 
     private final String description;
 }

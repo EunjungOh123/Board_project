@@ -1,7 +1,9 @@
 package com.example.board_practice.member.service;
 
 import com.example.board_practice.admin.dto.UserDto;
+import com.example.board_practice.course.model.ServiceResult;
 import com.example.board_practice.member.dto.FindPasswordDto;
+import com.example.board_practice.member.dto.UserInputDto;
 import org.springframework.validation.Errors;
 
 import java.util.Map;
@@ -42,4 +44,19 @@ public interface UserSettingsService {
      * 회원 가입 시 유효성 검사에 대한 에러 처리
      */
     Map<String, String> validateHandling(Errors errors);
+
+    /**
+     * 회원정보 수정
+     */
+    ServiceResult updateUser(UserInputDto parameter);
+
+    /**
+     * 회원 정보 페이지내 비밀번호 변경 기능
+     */
+    ServiceResult updateUserPassword(UserInputDto parameter);
+
+    /**
+     * 회원을 탈퇴시켜 주는 로직
+     */
+    ServiceResult withdraw(String userId, String password);
 }

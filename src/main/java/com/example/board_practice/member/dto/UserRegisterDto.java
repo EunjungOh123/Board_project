@@ -39,9 +39,9 @@ public class UserRegisterDto {
     private String nickname;
     @Email(message = "이메일 형식이 올바르지 않습니다.")
     private String email;
-
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
+
 
     public SiteUser toEntity () {
         return SiteUser.builder()
