@@ -5,6 +5,8 @@ import com.example.board_practice.member.type.RoleType;
 
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -43,5 +45,12 @@ public class SiteUser extends TimeEntity {
     private String resetPasswordKey;
     private LocalDateTime resetPasswordKeyLimitAt;
 
+    private LocalDateTime registeredAt;
+    private LocalDateTime updatedAt;
+
     private String userStatus; // 이용 가능한 상태 or 정지된 상태 or 가입 요청 중인 상태
+
+    private String zipcode;
+    private String addr;
+    private String addrDetail;
 }

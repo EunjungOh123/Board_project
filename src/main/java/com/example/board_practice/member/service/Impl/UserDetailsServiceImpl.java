@@ -51,6 +51,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UserStopException("정지된 회원입니다. 관리자에게 문의해주세요.");
         }
 
+        if(UserStatusType.WITHDRAW.toString().equals(user.getUserStatus())) {
+            throw new UserStopException("탈퇴한 회원입니다. 관리자에게 문의해주세요.");
+        }
+
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
 
         /* RoleType에 따라 권한을 부여*/

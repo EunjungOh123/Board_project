@@ -4,6 +4,7 @@ import com.example.board_practice.member.entity.SiteUser;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Builder
@@ -16,6 +17,7 @@ public class UserDto {
     String email;
     String nickname;
     LocalDateTime registeredAt;
+    LocalDateTime updatedAt;
 
     boolean emailAuthYn;
     LocalDateTime emailAuthAt;
@@ -25,6 +27,10 @@ public class UserDto {
 
     String resetPasswordKey;
     LocalDateTime resetPasswordLimitAt;
+
+    private String zipcode;
+    private String addr;
+    private String addrDetail;
 
     long totalCount;
     long seq;
@@ -36,12 +42,24 @@ public class UserDto {
                 .email(user.getEmail())
                 .nickname(user.getNickname())
                 .registeredAt(user.getRegisteredAt())
+                .updatedAt(user.getUpdatedAt())
                 .emailAuthYn(user.isEmailAuthYn())
                 .emailAuthAt(user.getEmailAuthAt())
                 .resetPasswordKey(user.getResetPasswordKey())
                 .resetPasswordLimitAt(user.getResetPasswordKeyLimitAt())
                 .roleType(user.getRoleType().toString())
                 .userStatus(user.getUserStatus())
+                .zipcode(user.getZipcode())
+                .addr(user.getAddr())
+                .addrDetail(user.getAddrDetail())
                 .build();
+    }
+    public String getRegDtText() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        return registeredAt != null ? registeredAt.format(formatter) : "";
+    }
+    public String getUpDtText() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        return updatedAt != null ? updatedAt.format(formatter) : "";
     }
 }
